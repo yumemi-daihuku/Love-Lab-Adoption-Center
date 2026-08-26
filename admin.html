@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>運営者ページ | 愛でラボ里親センター</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .admin-section { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 26px; margin-bottom: 26px; }
+  .admin-section h2 { margin-top: 0; color: var(--accent-dark); font-size: 1.05rem; }
+  .warn-box { background: #FBE6E2; border: 1px solid #E7B8AC; color: var(--accent-dark); border-radius: var(--radius-sm); padding: 14px 16px; font-size: 0.85rem; margin-bottom: 24px; }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .admin-table th, .admin-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .admin-table th { background: var(--panel-alt); }
+  .row-actions { display: flex; gap: 6px; }
+  .row-actions button { border: none; border-radius: 6px; padding: 6px 10px; font-size: 0.78rem; font-weight: 700; }
+  .btn-del { background: #FBE6E2; color: var(--accent-dark); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+  .feature-input-row { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-bottom: 8px; }
+</style>
+</head>
+<body data-page="admin">
+<a class="skip-link" href="#main">本文へスキップ</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-row">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="#9C3B30" d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2 4.5 5.6 4c2-.3 3.9.7 5 2.3C11.7 4.7 13.6 3.7 15.6 4c3.6.5 5.2 4.1 3.6 7.7C16.5 16.4 12 21 12 21z"/></svg>
+        </span>
+        <span class="brand-text">
+          <span class="name">愛でラボ里親センター</span>
+          <span class="tagline">運営者ページ</span>
+        </span>
+      </a>
+      <div class="header-actions" style="margin-left:auto;">
+        <a href="index.html">サイトへ戻る</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap page-body">
+    <h1 style="color:var(--accent-dark);">運営者ページ</h1>
+    <div class="warn-box">
+      現在Realtime Databaseは<strong>テストモード</strong>（誰でも読み書き可能）で運用されています。このページはログイン機能を持たないため、本番公開前に必ずセキュリティルールを設定し、このURLを一般公開しないようご注意ください。
+    </div>
+
+    <section class="admin-section">
+      <h2>サンプルデータの投入</h2>
+      <p style="color:var(--ink-soft);font-size:0.88rem;">まだ一件もデータが無い場合、以下のボタンでサンプルの紹介データ（8件）を <code>/yukkuris</code> に追加できます。既存データがある場合はそのまま追加されます。</p>
+      <button id="seed-btn" class="btn btn-outline">サンプルデータを投入する</button>
+      <span id="seed-status" style="margin-left:12px;font-size:0.85rem;color:var(--ink-soft);"></span>
+    </section>
+
+    <section class="admin-section">
+      <h2>新規プロフィール登録</h2>
+      <form id="new-form">
+        <div class="two-col">
+          <div class="field">
+            <label class="field-label" for="f-name">名前<span class="required-mark">必須</span></label>
+            <input id="f-name" name="name" required>
+          </div>
+          <div class="field">
+            <label class="field-label" for="f-category">カテゴリ<span class="required-mark">必須</span></label>
+            <select id="f-category" name="category" required>
+              <option value="赤ゆ">赤ゆっくり</option>
+              <option value="子ゆ">子ゆっくり</option>
+            </select>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label class="field-label" for="f-species">種族</label>
+            <select id="f-species" name="species">
+              <option>れいむ種</option>
+              <option>まりさ種</option>
+              <option>ありす種</option>
+              <option>ぱちゅりー種</option>
+              <option>ちぇん種</option>
+              <option>みょん種</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="f-hair">髪質</label>
+            <select id="f-hair" name="hair">
+              <option>直毛</option>
+              <option>天然パーマ</option>
+              <option>かため</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">性格（複数選択可）</span>
+          <div class="check-row">
+            <label><input type="checkbox" name="personality" value="チャレンジャー"> チャレンジャー</label>
+            <label><input type="checkbox" name="personality" value="シャイプリンセス"> シャイプリンセス</label>
+            <label><input type="checkbox" name="personality" value="おっとり癒し系"> おっとり癒し系</label>
+            <label><input type="checkbox" name="personality" value="観察者"> 観察者</label>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <span class="field-label">虐待の有無</span>
+            <div class="radio-row">
+              <label><input type="radio" name="abuse" value="無し" checked> 無し</label>
+              <label><input type="radio" name="abuse" value="有り"> 有り</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="f-toilet">トイレトレーニング</label>
+            <select id="f-toilet" name="toilet">
+              <option>未</option>
+              <option>済</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-abuseNote">虐待に関する補足（あれば・穏やかな表現で）</label>
+          <input id="f-abuseNote" name="abuseNote" placeholder="例：以前の環境では大変でしたが、今は落ち着いています">
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label class="field-label" for="f-pronoun">一人称</label>
+            <input id="f-pronoun" name="pronoun" placeholder="例：うち">
+          </div>
+          <div class="field">
+            <label class="field-label" for="f-likes">好きなもの</label>
+            <input id="f-likes" name="likes" placeholder="例：おんみょうだま">
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-accessory">お飾り</label>
+          <input id="f-accessory" name="accessory" placeholder="例：赤いリボン">
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-desc">紹介文</label>
+          <textarea id="f-desc" name="description"></textarea>
+        </div>
+        <div class="field">
+          <span class="field-label">この子の特徴（最大3つ）</span>
+          <div class="feature-input-row"><input name="ft1" placeholder="見出し例：あまえんぼう"><input name="fd1" placeholder="説明"></div>
+          <div class="feature-input-row"><input name="ft2" placeholder="見出し"><input name="fd2" placeholder="説明"></div>
+          <div class="feature-input-row"><input name="ft3" placeholder="見出し"><input name="fd3" placeholder="説明"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">登録する</button>
+        <div class="form-msg" id="new-form-msg"></div>
+      </form>
+    </section>
+
+    <section class="admin-section">
+      <h2>登録済みプロフィール一覧</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>名前</th><th>カテゴリ</th><th>種族</th><th>虐待</th><th>操作</th></tr></thead>
+          <tbody id="yukkuri-table-body"><tr><td colspan="5">読み込み中…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h2>里親申し込み一覧</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>日時</th><th>対象</th><th>お名前</th><th>連絡先</th><th>動機</th><th>ステータス</th></tr></thead>
+          <tbody id="apps-table-body"><tr><td colspan="6">読み込み中…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h2>お問い合わせ一覧</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>日時</th><th>お名前</th><th>種別</th><th>内容</th></tr></thead>
+          <tbody id="inquiries-table-body"><tr><td colspan="4">読み込み中…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+import { db, ref, onValue, push, set, remove } from "./js/firebase-init.js";
+import { SAMPLE_YUKKURI } from "./js/data.js";
+import { escapeHtml } from "./js/app.js";
+
+// ----- サンプルデータ投入 -----
+document.getElementById("seed-btn").addEventListener("click", async () => {
+  const statusEl = document.getElementById("seed-status");
+  statusEl.textContent = "投入中…";
+  try {
+    for (const item of SAMPLE_YUKKURI) {
+      const newRef = push(ref(db, "yukkuris"));
+      await set(newRef, { ...item, createdAt: Date.now() });
+    }
+    statusEl.textContent = `${SAMPLE_YUKKURI.length}件を投入しました。`;
+  } catch (error) {
+    statusEl.textContent = `失敗しました：${error.message}`;
+  }
+});
+
+// ----- 新規登録フォーム -----
+const newForm = document.getElementById("new-form");
+newForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(newForm);
+  const features = [1, 2, 3]
+    .map((n) => ({ title: data.get(`ft${n}`), desc: data.get(`fd${n}`) }))
+    .filter((f) => f.title && f.desc);
+  const payload = {
+    name: data.get("name"),
+    category: data.get("category"),
+    species: data.get("species"),
+    hair: data.get("hair"),
+    personality: data.getAll("personality"),
+    abuse: data.get("abuse"),
+    abuseNote: data.get("abuseNote") || "",
+    toilet: data.get("toilet"),
+    pronoun: data.get("pronoun") || "",
+    likes: data.get("likes") || "",
+    accessory: data.get("accessory") || "",
+    description: data.get("description") || "",
+    features,
+    createdAt: Date.now(),
+  };
+  const msgEl = document.getElementById("new-form-msg");
+  try {
+    const newRef = push(ref(db, "yukkuris"));
+    await set(newRef, payload);
+    msgEl.textContent = "登録しました。";
+    msgEl.className = "form-msg show ok";
+    newForm.reset();
+  } catch (error) {
+    msgEl.textContent = `登録に失敗しました：${error.message}`;
+    msgEl.className = "form-msg show error";
+  }
+});
+
+// ----- 登録済み一覧 -----
+onValue(ref(db, "yukkuris"), (snap) => {
+  const items = snap.val() || {};
+  const tbody = document.getElementById("yukkuri-table-body");
+  const entries = Object.entries(items);
+  if (entries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5">登録されているプロフィールはありません。</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = entries.map(([id, item]) => `
+    <tr>
+      <td>${escapeHtml(item.name)}</td>
+      <td>${escapeHtml(item.category)}</td>
+      <td>${escapeHtml(item.species)}</td>
+      <td>${escapeHtml(item.abuse)}</td>
+      <td class="row-actions">
+        <a href="detail.html?id=${id}" target="_blank" class="btn btn-ghost" style="padding:6px 10px;font-size:0.78rem;">表示</a>
+        <button class="btn-del" data-del="${id}">削除</button>
+      </td>
+    </tr>`).join("");
+
+  tbody.querySelectorAll("[data-del]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      if (!confirm("このプロフィールを削除しますか？")) return;
+      await remove(ref(db, `yukkuris/${btn.dataset.del}`));
+    });
+  });
+});
+
+// ----- 里親申し込み一覧 -----
+onValue(ref(db, "applications"), (snap) => {
+  const items = snap.val() || {};
+  const tbody = document.getElementById("apps-table-body");
+  const entries = Object.entries(items).sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+  if (entries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6">まだ申し込みはありません。</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = entries.map(([id, a]) => `
+    <tr>
+      <td>${a.createdAt ? new Date(a.createdAt).toLocaleString("ja-JP") : "-"}</td>
+      <td>${escapeHtml(a.yukkuriName || "-")}</td>
+      <td>${escapeHtml(a.applicantName)}</td>
+      <td>${escapeHtml(a.email)}${a.phone ? " / " + escapeHtml(a.phone) : ""}</td>
+      <td>${escapeHtml(a.motivation)}</td>
+      <td>${escapeHtml(a.status || "-")}</td>
+    </tr>`).join("");
+});
+
+// ----- お問い合わせ一覧 -----
+onValue(ref(db, "inquiries"), (snap) => {
+  const items = snap.val() || {};
+  const tbody = document.getElementById("inquiries-table-body");
+  const entries = Object.entries(items).sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+  if (entries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4">まだお問い合わせはありません。</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = entries.map(([id, a]) => `
+    <tr>
+      <td>${a.createdAt ? new Date(a.createdAt).toLocaleString("ja-JP") : "-"}</td>
+      <td>${escapeHtml(a.name)}</td>
+      <td>${escapeHtml(a.category)}</td>
+      <td>${escapeHtml(a.message)}</td>
+    </tr>`).join("");
+});
+</script>
+</body>
+</html>

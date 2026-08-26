@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.vscode/
+.idea/
+
+# ローカル確認用に生成される可能性のあるもの
+node_modules/
+*.log
